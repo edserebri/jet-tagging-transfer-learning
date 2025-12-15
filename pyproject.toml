@@ -1,0 +1,35 @@
+[project]
+name = "jet-tagging-transfer-learning"
+version = "0.1.0"
+description = "Transfer learning for jet tagging in particle physics"
+requires-python = ">=3.10"
+authors = [
+    { name = "Egor Serebriakov" }
+]
+
+# Core dependencies
+dependencies = [
+    "numpy",
+    "torch",
+    "matplotlib",
+]
+
+# Ruff: linting + auto-formatting
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+fix = true  # automatic fixes when running Ruff manually
+select = ["E", "F", "I"]  # error checks, flake8 rules, import rules
+ignore = []  # nothing to put yet
+
+# Excluded heavy directories
+exclude = [
+    "data/",
+    "__pycache__/",
+]
+
+# Ruff formatter
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
