@@ -45,11 +45,16 @@
 
 ```text
 .
-├── src/                         # Исходный код, обучение, инференс
+├── notebooks/                         # Исходный код, обучение, инференс
+│   └── 01_eda_atlas.ipynb
+│   └── preprocess.py
+│   └── visualize.py
+├── results/
+│   └── eda.ipynb
 ├── tests/                       # Тесты (при необходимости)
 ├── docs/
 │   └── ml_system_design_doc.md
-├── data/                        # В .gitignore
+├── data/
 ├── README.md
 ├── pyproject.toml
 ├── .pre-commit-config.yaml

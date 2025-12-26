@@ -11,4 +11,5 @@ venv/
 .cache/
 dist/
 build/
-data/
+# data/
+.DS_Store
