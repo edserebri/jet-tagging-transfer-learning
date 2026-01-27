@@ -34,24 +34,39 @@ JetsPayload = Union[List[List[float]], List[List[List[float]]]]
 
 
 class PredictRequest(BaseModel):
-    # Батч джетов в одном из поддерживаемых форматов
     jets: JetsPayload = Field(..., description="Batch of jets in flat or constituent-level format")
 
-    # Явно указываем формат или даем сервису определить его автоматически
-    format: Literal["auto", "flat", "constituents"] = Field(
-        "auto", description="How to interpret the `jets` field"
+    format: Literal["flat", "constituents"] = Field(
+        "constituents",
+        description="Input format. 'constituents' is recommended for manual requests.",
     )
 
-    # Посмотреть логиты до softmax (например, для отладки)
     return_logits: bool = Field(False, description="Whether to include raw logits in the response")
 
     @field_validator("jets")
     @classmethod
     def non_empty(cls, v: JetsPayload) -> JetsPayload:
-        # Не принимаем пустые запросы
         if not v:
             raise ValueError("`jets` must be a non-empty list")
         return v
+
+    model_config = {
+        "json_schema_extra": {
+            "example": {
+                "format": "constituents",
+                "return_logits": False,
+                "jets": [
+                    [
+                        [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7],
+                        [0.0, 0.1, 0.0, 0.2, 0.0, 0.3, 0.0],
+                    ],
+                    [
+                        [1.0, 0.0, 0.0, 0.0, 0.1, 0.0, 0.1],
+                    ],
+                ],
+            }
+        }
+    }
 
 
 class PredictResponse(BaseModel):
